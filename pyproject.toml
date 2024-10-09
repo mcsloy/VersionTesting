@@ -1,0 +1,26 @@
+[project]
+name = "versiontesting"
+dynamic = ["version"]
+description = "Some description"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Adam McSloy", email = "a.mcsloy@bristol.ac.uk" }]
+dependencies = ["packaging"]
+
+[build-system]
+requires = ["setuptools", "wheel", "python-semantic-release"]
+build-backend = "setuptools.build_meta"
+
+[tool.semantic_release]
+version_variables = ["src/somepackage/__init__.py:__version__"]
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = [
+	"major",
+	"feature",
+	"patch",
+	"chore",
+]
+major_tags = ["major"]
+minor_tags = ["feature"]
+patch_tags = ["patch"]
