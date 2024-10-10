@@ -30,9 +30,14 @@ jobs:
         run: |
           conda install conda-forge::python-semantic-release>=9.10.0         
 
+      - name: Verify Conda Environment and python-semantic-release
+        run: |
+          conda info  # Check that Conda is active
+          conda list python-semantic-release  # Ensure the correct version is installed
+          which semantic-release  # Verify the path to the semantic-release executable
+
       - name: Set version number
         run: |
-          # Extract version from __init__.py and store in PACKAGE_VERSION
           PACKAGE_VERSION=$(semantic-release --noop version --print)
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
 
