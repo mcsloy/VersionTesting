@@ -2,6 +2,7 @@
 import os
 import sys
 import subprocess
+import re
 
 # Get the current branch
 branch_name = subprocess.check_output(
@@ -14,18 +15,13 @@ if branch_name == "main":
     with open(commit_msg_filepath, 'r') as file:
         commit_msg = file.read()
 
-    # Define valid tags
-    valid_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf",
-                  "style", "refactor", "test"]
+    pattern = r"^(build|chore|ci|docs|feat|fix|perf|style|refactor|test)(\([a-z0-9\-_]+\))?(!)?:\s.*"
 
     # Check if the commit message starts with a valid tag
-    if not any(commit_msg.startswith(tag + ":") or commit_msg.startswith(tag + "!") for tag in valid_tags):
+    if not re.match(pattern, commit_msg):
 
-        tag_list = ", ".join([tag + ":" for tag in valid_tags])
-
-        print(
-            "Error: Commit message must start with one of the following tags: "
-            f"{tag_list}.")
+        print("Error: Commit message must follow the Angular format (e.g., "
+              "'feat: description' or 'fix(scope): description').")
 
         sys.exit(1)
 
