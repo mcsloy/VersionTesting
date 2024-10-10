@@ -28,7 +28,8 @@ jobs:
 
       - name: Install python-semantic-release for versioning
         run: |
-          conda install conda-forge::python-semantic-release>=9.10.0         
+          conda search conda-forge::python-semantic-release
+          conda install conda-forge::python-semantic-release">9"         
 
       - name: Verify Conda Environment and python-semantic-release
         run: |
