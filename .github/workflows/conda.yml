@@ -29,6 +29,10 @@ jobs:
       - name: Install python-semantic-release for versioning
         run: |
           conda install conda-forge::python-semantic-release
+          semantic-release --version
+          semantic-release version --help
+          semantic-release --noop version --print
+          
 
       - name: Set version number
         run: |
