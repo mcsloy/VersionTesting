@@ -16,11 +16,16 @@ version_variables = ["src/versiontesting/__init__.py:__version__"]
 
 [tool.semantic_release.commit_parser_options]
 allowed_tags = [
-	"major",
-	"feature",
-	"patch",
-	"chore",
+    "build",
+    "chore",
+    "ci",
+    "docs",
+    "feat",
+    "fix",
+    "perf",
+    "style",
+    "refactor",
+    "test",
 ]
-major_tags = ["major"]
-minor_tags = ["feature"]
-patch_tags = ["patch"]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
