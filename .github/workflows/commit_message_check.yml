@@ -1,0 +1,31 @@
+name: Commit Message Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  commit-message-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        steps:
+        with:
+          fetch-depth: 0
+          tags: true
+
+      - name: Lint commit messages
+        run: |
+          git log -1 --pretty=%B | grep -Eq "^(build|chore|ci|docs|feat|fix|perf|style|refactor|test)(\([a-z0-9\-_]+\))?(!)?:\s.+" || exit 1
+        shell: bash
+
+      - name: Fail if commit message is invalid
+        if: failure()
+        run: |
+          echo "Commit message does not follow Angular semantic versioning format!"
+          exit 1
