@@ -37,7 +37,7 @@ jobs:
 
       - name: Run semantic release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: semantic-release version --no-commit
 
       - name: Install conda-build and anaconda-client
