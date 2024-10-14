@@ -35,6 +35,9 @@ jobs:
           PACKAGE_VERSION=$(semantic-release --noop version --print)
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
 
+      - name: Run semantic release
+        run: semantic-release version --no-commit
+
       - name: Install conda-build and anaconda-client
         run: |
           conda install -c conda-forge conda-build anaconda-client
