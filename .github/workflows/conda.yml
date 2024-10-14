@@ -40,10 +40,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: semantic-release version --no-commit
 
-      - name: Build the Conda package
-        run: conda build ./conda -c irl -c conda-forge
-
-      - name: Upload the Conda package to Anaconda.org
-        run: |
-          PACKAGE_PATH=$(conda build ./conda --output)
-          anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload $PACKAGE_PATH
+      - name: Build and upload the Conda package
+        run: conda build ./conda -c irl -c conda-forge --token ${{ secrets.ANACONDA_TOKEN }}
