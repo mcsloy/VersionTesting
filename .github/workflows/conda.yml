@@ -35,10 +35,25 @@ jobs:
           # For building and publishing the anaconda package
           conda install -c conda-forge conda-build anaconda-client
 
+      # Do not re-build and publish the package just because a commit was made
+      # only do it when necessary.
+      - name: Determine if release is needed
+        id: release_needed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ steps.last_version.outputs.last_version }}" != "${{ steps.next_version.outputs.next_version }}" ]; then
+            echo "release_needed=true" >> $GITHUB_OUTPUT
+          else
+            echo "release_needed=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run semantic release
+        if: steps.release_needed.outputs.release_needed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: semantic-release version --no-commit
 
       - name: Build and upload the Conda package
+        if: steps.release_needed.outputs.release_needed == 'true'
         run: conda build ./conda -c irl -c conda-forge --token ${{ secrets.ANACONDA_TOKEN }}
