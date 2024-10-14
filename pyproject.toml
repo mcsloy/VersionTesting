@@ -12,7 +12,7 @@ requires = ["setuptools", "wheel", "python-semantic-release"]
 build-backend = "setuptools.build_meta"
 
 [tool.semantic_release]
-version_variables = ["src/versiontesting/__init__.py:__version__"]
+version_variables = ["src/versiontesting/__init__.py:__version__", "conda/meta.yaml:version"]
 
 [tool.semantic_release.commit_parser_options]
 allowed_tags = [

@@ -1,6 +1,6 @@
 package:
   name: versiontesting
-  version: {{ environ.get('PACKAGE_VERSION', '')  }}
+  version: "2.4.8"
 
 source:
   path: ..
